@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breslavia MAX App</title>
+
+<style>
+body { font-family: Arial; margin:0; background:#f0f2f5; }
+header { background:#111; color:white; padding:15px; text-align:center; }
+
+.tabs { display:flex; background:#222; }
+.tabs button {
+ flex:1; padding:12px; border:none; color:white; background:#222;
+}
+
+.container { padding:10px; }
+
+.card {
+ background:white; padding:12px; margin-bottom:10px;
+ border-radius:12px; box-shadow:0 3px 6px rgba(0,0,0,0.1);
+}
+
+.small { padding:6px; margin-top:5px; border:none; border-radius:6px; }
+
+.map { width:100%; height:200px; border:none; border-radius:10px; }
+
+</style>
+
+<script>
+let fav = JSON.parse(localStorage.getItem("fav")||"[]");
+
+function toggle(name){
+ if(fav.includes(name)) fav=fav.filter(x=>x!==name);
+ else fav.push(name);
+ localStorage.setItem("fav", JSON.stringify(fav));
+ alert("Aggiornato preferiti");
+}
+
+function tab(id){
+ document.querySelectorAll(".sec").forEach(e=>e.style.display="none");
+ document.getElementById(id).style.display="block";
+}
+
+function budget(){
+ let giorni = prompt("Quanti giorni?");
+ let totale = giorni * 50;
+ alert("Budget medio: " + totale + "€");
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+<h2>📍 Breslavia MAX App</h2>
+</header>
+
+<div class="tabs">
+<button onclick="tab('attr')">Attrazioni</button>
+<button onclick="tab('food')">Ristoranti</button>
+<button onclick="tab('pub')">Locali</button>
+<button onclick="tab('itinerario')">Itinerario</button>
+<button onclick="budget()">💰 Budget</button>
+</div>
+
+<div class="container">
+
+<!-- ATTRAZIONI -->
+<div id="attr" class="sec">
+
+<div class="card">
+<b>Rynek</b> ⭐ 4.8 – Gratis  
+<p>Centro storico spettacolare</p>
+<button onclick="toggle('Rynek')">❤️ Preferito</button>
+
+<iframe class="map"
+src="https://maps.google.com/maps?q=rynek%20wroclaw&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+</div>
+
+<div class="card">
+<b>Zoo Breslavia</b> ⭐ 4.7 – €€  
+<p>Uno dei migliori zoo in Europa</p>
+<button onclick="toggle('Zoo')">❤️ Preferito</button>
+
+<iframe class="map"
+src="https://maps.google.com/maps?q=zoo%20wroclaw&t=&z=15&output=embed"></iframe>
+</div>
+
+</div>
+
+<!-- RISTORANTI -->
+<div id="food" class="sec" style="display:none">
+
+<div class="card">
+<b>Pierogarnia Stary Młyn</b> ⭐ 4.7 – €  
+<p>Tipico polacco, economico e top</p>
+<button onclick="toggle('Pierogi')">❤️ Preferito</button>
+
+<iframe class="map"
+src="https://maps.google.com/maps?q=pierogarnia%20stary%20mlyn%20wroclaw&output=embed"></iframe>
+</div>
+
+<div class="card">
+<b>Konspira</b> ⭐ 4.5 – €€  
+<p>Esperienza storica + cucina locale</p>
+<button onclick="toggle('Konspira')">❤️ Preferito</button>
+</div>
+
+</div>
+
+<!-- LOCALI -->
+<div id="pub" class="sec" style="display:none">
+
+<div class="card">
+<b>Pijana Wiśnia</b> ⭐ 4.9 – €  
+<p>Shots iconici alla ciliegia</p>
+<button onclick="toggle('Wisnia')">❤️ Preferito</button>
+</div>
+
+<div class="card">
+<b>Kontynuacja</b> ⭐ 4.5 – €€  
+<p>Birre artigianali top</p>
+<button onclick="toggle('Kontynuacja')">❤️ Preferito</button>
+</div>
+
+</div>
+
+<!-- ITINERARIO -->
+<div id="itinerario" class="sec" style="display:none">
+
+<div class="card">
+<b>Giorno 1</b>
+<p>Rynek → Ostrów Tumski → Cena tipica</p>
+</div>
+
+<div class="card">
+<b>Giorno 2</b>
+<p>Zoo → Hala Stulecia → Pub serale</p>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
